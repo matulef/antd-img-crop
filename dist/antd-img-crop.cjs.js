@@ -240,9 +240,11 @@ var ImgCrop = /*#__PURE__*/React.forwardRef(function (props, ref) {
             canvas = document.createElement('canvas');
             ctx = canvas.getContext('2d'); // create a max canvas to cover the source image after rotated
 
-            maxLen = Math.sqrt(Math.pow(naturalWidth, 2) + Math.pow(naturalHeight, 2));
+            maxLen = Math.sqrt(Math.pow(naturalWidth, 2) + Math.pow(naturalHeight, 2)) / zoomVal;
             canvas.width = maxLen;
-            canvas.height = maxLen; // rotate the image
+            canvas.height = maxLen;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // rotate the image
 
             if (hasRotate && rotateVal > 0 && rotateVal < 360) {
               halfMax = maxLen / 2;
@@ -346,13 +348,13 @@ var ImgCrop = /*#__PURE__*/React.forwardRef(function (props, ref) {
               };
             }(), type, 0.4);
 
-          case 19:
+          case 21:
           case "end":
             return _context2.stop();
         }
       }
     }, _callee2);
-  })), [hasRotate, onClose, rotateVal]);
+  })), [hasRotate, onClose, rotateVal, zoomVal]);
   return /*#__PURE__*/React__default['default'].createElement(LocaleReceiver__default['default'], null, function (locale, localeCode) {
     return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, renderUpload(), src && /*#__PURE__*/React__default['default'].createElement(Modal__default['default'], Object.assign({
       visible: true,

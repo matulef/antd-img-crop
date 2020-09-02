@@ -203,9 +203,11 @@ const ImgCrop = forwardRef((props, ref) => {
     const ctx = canvas.getContext('2d');
 
     // create a max canvas to cover the source image after rotated
-    const maxLen = Math.sqrt(Math.pow(naturalWidth, 2) + Math.pow(naturalHeight, 2));
+    const maxLen = Math.sqrt(Math.pow(naturalWidth, 2) + Math.pow(naturalHeight, 2)) / zoomVal;
     canvas.width = maxLen;
     canvas.height = maxLen;
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // rotate the image
     if (hasRotate && rotateVal > 0 && rotateVal < 360) {
@@ -262,7 +264,7 @@ const ImgCrop = forwardRef((props, ref) => {
       type,
       0.4
     );
-  }, [hasRotate, onClose, rotateVal]);
+  }, [hasRotate, onClose, rotateVal, zoomVal]);
 
   return (
     <LocaleReceiver>
